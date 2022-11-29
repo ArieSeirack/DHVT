@@ -5,6 +5,12 @@ This repository contains PyTorch based codes for DHVT, including detailed models
 > 
 > _Zhiying Lu, Hongtao Xie, Chuanbin Liu, Yongdong Zhang_
 
+## Usage
+
+```
+git clone https://github.com/ArieSeirack/DHVT.git
+```
+Change directory to the cloned repository by running `cd DHVT`, install necessary packages, and prepare the datasets.
 
 ## Preparation
 Models are trained using Python3.6 and the following packages
@@ -22,12 +28,11 @@ These packages can be installed by running `pip install -r requirements.txt`.
 
 
 ## Data preparation
-Download the desired datasets from the following link.
+Download the desired datasets from the following links, and use the scripts in [VTs-Drloc](https://github.com/yhlleo/VTs-Drloc/tree/master/scripts) to pre-process the DomainNet datasets. For the CIFAR-100 dataset, we recommend using the official dataset reader code from torchvision as in the [dataset.py](https://github.com/ArieSeirack/DHVT/blob/main/datasets.py) as set the `download=True`
 
 |Dataset|Download Link|
 |:-----|:-----|
 |[ImageNet](https://www.image-net.org/)|[train](http://www.image-net.org/data/ILSVRC/2012/ILSVRC2012_img_train.tar),[val](http://www.image-net.org/data/ILSVRC/2012/ILSVRC2012_img_val.tar)|
-|[CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html)|[all](https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz)|
 |[CIFAR-100](https://www.cs.toronto.edu/~kriz/cifar.html)|[all](https://www.cs.toronto.edu/~kriz/cifar-100-python.tar.gz)|
 |[Clipart](http://ai.bu.edu/M3SDA/)|[images](http://csr.bu.edu/ftp/visda/2019/multi-source/groundtruth/clipart.zip), [train_list](http://csr.bu.edu/ftp/visda/2019/multi-source/domainnet/txt/clipart_train.txt), [test_list](http://csr.bu.edu/ftp/visda/2019/multi-source/domainnet/txt/clipart_test.txt)|
 |[Infograph](http://ai.bu.edu/M3SDA/)|[images](http://csr.bu.edu/ftp/visda/2019/multi-source/infograph.zip), [train_list](http://csr.bu.edu/ftp/visda/2019/multi-source/domainnet/txt/infograph_train.txt), [test_list](http://csr.bu.edu/ftp/visda/2019/multi-source/domainnet/txt/infograph_test.txt)|
@@ -36,7 +41,8 @@ Download the desired datasets from the following link.
 |[Real](http://ai.bu.edu/M3SDA/)|[images](http://csr.bu.edu/ftp/visda/2019/multi-source/real.zip), [train_list](http://csr.bu.edu/ftp/visda/2019/multi-source/domainnet/txt/real_train.txt), [test_list](http://csr.bu.edu/ftp/visda/2019/multi-source/domainnet/txt/real_test.txt)|
 |[Sketch](http://ai.bu.edu/M3SDA/)|[images](http://csr.bu.edu/ftp/visda/2019/multi-source/sketch.zip), [train_list](http://csr.bu.edu/ftp/visda/2019/multi-source/domainnet/txt/sketch_train.txt), [test_list](http://csr.bu.edu/ftp/visda/2019/multi-source/domainnet/txt/sketch_test.txt)|
 
-The directory structure is the standard layout for the torchvision [`datasets.ImageFolder`](https://pytorch.org/docs/stable/torchvision/datasets.html#imagefolder), and the training and validation data is expected to be in the `train/` folder and `val` folder respectively:
+For the ImageNet-1k dataset, the directory structure is the standard layout for the torchvision [`datasets.ImageFolder`](https://pytorch.org/docs/stable/torchvision/datasets.html#imagefolder), and the training and validation data is expected to be in the `train/` folder and `val/` folder respectively.
+
 Except for CIFAR-100, other datasets should be arranged as the following structure:
 ```
 [dataset_name]
@@ -57,24 +63,26 @@ Except for CIFAR-100, other datasets should be arranged as the following structu
        |    |__...
        |__...
 ```
-We use the same datasets as in [DeiT](https://github.com/facebookresearch/deit). You can optionally use an LMDB dataset for ImageNet by building it using `folder2lmdb.py` and passing `--use-lmdb` to `main.py`, which may speed up data loading.
+You can optionally use an LMDB dataset for ImageNet by building it using `folder2lmdb.py` and passing `--use-lmdb` to `main.py`, which may speed up data loading.
 
-## Usage
-
-```
-git clone https://github.com/ArieSeirack/DHVT.git
-```
-Change directory to the cloned repository by running `cd DHVT`, install necessary packages, and prepare the datasets.
 
 ## Training
-To train `EViT/0.7-DeiT-S` on ImageNet, set the `datapath` (path to dataset) and `logdir` (logging directory) in `run_code.sh` properly and run `bash ./run_code.sh` (`--nproc_per_node` should be modified if necessary). Note that the batch size in the paper is 16x128=2048.
+We provide three `run_code_[dataset].sh` file that contains the training hyperparameters.
 
-Set `--base_keep_rate` in `run_code.sh` to use a different keep rate, and set `--fuse_token` to configure whether to use inattentive token fusion. 
+For example, to train `DHVT-Small-CIFAR100-patch4` with 2 GPUs on single node, you can do 
+```
+CUDA_VISIBLE_DEVICES=0,1 bash run_code_cifar.sh
+```
+
+To train other model variants on other datasets, just follow the above operation. The `now` variable is to make the directory for output model checkpoints.
 
 
 ## Finetuning
-Firstly, set the `ckpt` (the path to the pretrained model checkpoint) and in `run_code.sh`, and then:
-run `bash ./finetune.sh`.
+Firstly, set the `ckpt` (the path to the pretrained model checkpoint) and in `finetune.sh`, and then:
+
+```
+CUDA_VISIBLE_DEVICES=0,1 bash finetune.sh
+```
 
 ## Pretrained Model Zoo on ImageNet-1k
 
@@ -82,14 +90,14 @@ We provide two DHVT models pretrained on ImageNet 2012.
 
 | Method | #Params | GFLOPs| Acc@1 | Acc@5 | URL |
 | --- | --- | --- | --- | --- | --- |
-| DHVT-T | 6.2 | 1.4 | 77.6 | ???? | [model] (Wait-for-release) |
-| DHVT-S | 23.8 | 5.1 | 82.3 | ???? | [model] (Wait-for-release) |
+| DHVT-T | 6.2 | 1.4 | 77.6 | 93.4 | (Wait-for-release) |
+| DHVT-S | 23.8 | 5.1 | 82.3 | 96.0 | (Wait-for-release) |
 
 ## License
 This repository is released under the Apache 2.0 license as found in the [LICENSE](LICENSE) file.
 
 ## Acknowledgement
-We would like to think the authors of [DeiT](https://github.com/facebookresearch/deit) and [timm](https://github.com/rwightman/pytorch-image-models), based on which this codebase was built.
+We would like to think the authors of [DeiT](https://github.com/facebookresearch/deit), [timm](https://github.com/rwightman/pytorch-image-models), [VTs-Drloc](https://github.com/yhlleo/VTs-Drloc), [XCiT](https://github.com/facebookresearch/xcit), [CeiT](https://github.com/coeusguo/ceit) and mainly [EViT](https://github.com/youweiliang/evit), based on which this codebase was built.
 
 ## Citation
 If you use this code for a paper please cite:
