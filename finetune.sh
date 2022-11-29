@@ -1,6 +1,6 @@
 now=$(date +"%Y%m%d_%H%M%S")
 
-ckpt="path-to-pretrain"
+ckpt="./pretrain/checkpoint.pth"
 
 python -u -m torch.distributed.launch --nproc_per_node=2 --use_env --master_port=997\
 	main.py \
