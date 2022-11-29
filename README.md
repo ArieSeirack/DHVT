@@ -26,7 +26,6 @@ einops==0.4.1
 ```
 These packages can be installed by running `pip install -r requirements.txt`.
 
-
 ## Data preparation
 Download the desired datasets from the following links, and use the scripts in [VTs-Drloc](https://github.com/yhlleo/VTs-Drloc/tree/master/scripts) to pre-process the DomainNet datasets. For the CIFAR-100 dataset, we recommend using the official dataset reader code from torchvision as in the [dataset.py](https://github.com/ArieSeirack/DHVT/blob/main/datasets.py) as set the `download=True`
 
@@ -92,6 +91,14 @@ We provide two DHVT models pretrained on ImageNet 2012.
 | --- | --- | --- | --- | --- | --- |
 | DHVT-T | 6.2 | 1.4 | 77.6 | 93.4 | (Wait-for-release) |
 | DHVT-S | 23.8 | 5.1 | 82.3 | 96.0 | (Wait-for-release) |
+
+## Future Work
+
+1. Release the pretrained models on ImageNet-1k. (Coming in mid-December)
+
+2. Recombine the code structure and split the large scripts in `vision_transformer.py` into multiple smaller ones.
+
+3. Improve the method to _DHVTv2_, which is a hierarchical structure and with lower computational costs and higher performance
 
 ## License
 This repository is released under the Apache 2.0 license as found in the [LICENSE](LICENSE) file.
