@@ -793,7 +793,7 @@ def deit_small_patch16_224(pretrained=False, **kwargs):
 def dhvt_tiny_cifar_patch4(pretrained=False, **kwargs):
     model_kwargs = dict(img_size=32, patch_size=4, embed_dim=192, depth=12, num_heads=4, mlp_ratio=4, apply_dhvt=True)
     model_kwargs.update(kwargs)
-    model = _create_vision_transformer('deit_small_patch16_224', pretrained=pretrained, **model_kwargs)
+    model = _create_vision_transformer('deit_tiny_patch16_224', pretrained=pretrained, **model_kwargs)
     print(model)
     return model
 
@@ -811,7 +811,7 @@ def dhvt_small_cifar_patch4(pretrained=False, **kwargs):
 def dhvt_tiny_cifar_patch2(pretrained=False, **kwargs):
     model_kwargs = dict(img_size=32, patch_size=2, embed_dim=192, depth=12, num_heads=4, mlp_ratio=4, apply_dhvt=True)
     model_kwargs.update(kwargs)
-    model = _create_vision_transformer('deit_small_patch16_224', pretrained=pretrained, **model_kwargs)
+    model = _create_vision_transformer('deit_tiny_patch16_224', pretrained=pretrained, **model_kwargs)
     print(model)
     return model
 
@@ -829,7 +829,7 @@ def dhvt_small_cifar_patch2(pretrained=False, **kwargs):
 def dhvt_tiny_domain_patch16(pretrained=False, **kwargs):
     model_kwargs = dict(img_size=224, patch_size=16, embed_dim=192, depth=12, num_heads=4, mlp_ratio=4, apply_dhvt=True)
     model_kwargs.update(kwargs)
-    model = _create_vision_transformer('deit_small_patch16_224', pretrained=pretrained, **model_kwargs)
+    model = _create_vision_transformer('deit_tiny_patch16_224', pretrained=pretrained, **model_kwargs)
     print(model)
     return model
 
@@ -847,7 +847,7 @@ def dhvt_small_domain_patch16(pretrained=False, **kwargs):
 def dhvt_tiny_imagenet_patch16(pretrained=False, **kwargs):
     model_kwargs = dict(img_size=224, patch_size=16, embed_dim=192, depth=12, num_heads=3, mlp_ratio=4, apply_dhvt=True)
     model_kwargs.update(kwargs)
-    model = _create_vision_transformer('deit_small_patch16_224', pretrained=pretrained, **model_kwargs)
+    model = _create_vision_transformer('deit_tiny_patch16_224', pretrained=pretrained, **model_kwargs)
     print(model)
     return model
 
