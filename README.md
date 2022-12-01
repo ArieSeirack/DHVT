@@ -104,7 +104,7 @@ We provide two DHVT models pretrained on ImageNet 2012.
 This repository is released under the Apache 2.0 license as found in the [LICENSE](LICENSE) file.
 
 ## Acknowledgement
-We would like to think the authors of [DeiT](https://github.com/facebookresearch/deit), [timm](https://github.com/rwightman/pytorch-image-models), [VTs-Drloc](https://github.com/yhlleo/VTs-Drloc), [XCiT](https://github.com/facebookresearch/xcit), [CeiT](https://github.com/coeusguo/ceit) and mainly [EViT](https://github.com/youweiliang/evit), based on which this codebase was built.
+We would like to thank the authors of [DeiT](https://github.com/facebookresearch/deit), [timm](https://github.com/rwightman/pytorch-image-models), [VTs-Drloc](https://github.com/yhlleo/VTs-Drloc), [XCiT](https://github.com/facebookresearch/xcit), [CeiT](https://github.com/coeusguo/ceit) and mainly [EViT](https://github.com/youweiliang/evit), based on which this codebase was built.
 
 ## Citation
 If you use this code for a paper please cite:
