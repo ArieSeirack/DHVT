@@ -5,6 +5,13 @@ This repository contains PyTorch based codes for DHVT, including detailed models
 > 
 > _Zhiying Lu, Hongtao Xie, Chuanbin Liu, Yongdong Zhang_
 
+## Updates!
+Note that we fix the bug when calculating the FLOPs of the models. There are two reasons.
+
+(1) The previous applied toolkit [fvcore](https://github.com/facebookresearch/fvcore) does not support some operations. And now we change the toolkit to [deepspeed](https://github.com/microsoft/DeepSpeed), which is more robust. (2) When calculating the FLOPs of CNNs on CIFAR-100, we made mistakes on the resolution. For example, on the previous version of the paper, the image of 32x32 in CIFAR was first pooled to 8x8 and then fed into the first stage of the CNNs. This downsampling operation greatly decreased the performance. **The correct way is to remove such downsampling**, which means the input resolution of the first stage of CNNs is kept to 32x32. And we now achieve the close results with the original CNN papers. Therefore, the correct FLOPs of CNNs is roughly 16 times as those in our original paper.
+
+The results in the [Openreview version](https://openreview.net/forum?id=bfz-jhJ8wn) and [arxiv version](https://arxiv.org/abs/2210.05958) have been modified.
+
 ## Usage
 
 ```
