@@ -12,6 +12,10 @@ Note that we fix the bug when calculating the FLOPs of the models. There are two
 
 The results in the [Openreview version](https://openreview.net/forum?id=bfz-jhJ8wn) and [arxiv version](https://arxiv.org/abs/2210.05958) have been modified.
 
+(2) The pretrained models on ImageNet-1k are released! Sorry for the delay.
+
+(3) Happy to release the DHVT2 on [TPAMI](https://ieeexplore.ieee.org/abstract/document/10836856)! DHVT2 is greatly improved from DHVT, with much higher performance on (i) small datasets pretrain, (ii) large datasets pretrain, (iii) transfer learning, and (iv) dense prediction tasks. The corresponding code and pretrained weights will be released in late Aug.
+
 ## Usage
 
 ```
@@ -47,7 +51,7 @@ Download the desired datasets from the following links, and use the scripts in [
 |[Real](http://ai.bu.edu/M3SDA/)|[images](http://csr.bu.edu/ftp/visda/2019/multi-source/real.zip), [train_list](http://csr.bu.edu/ftp/visda/2019/multi-source/domainnet/txt/real_train.txt), [test_list](http://csr.bu.edu/ftp/visda/2019/multi-source/domainnet/txt/real_test.txt)|
 |[Sketch](http://ai.bu.edu/M3SDA/)|[images](http://csr.bu.edu/ftp/visda/2019/multi-source/sketch.zip), [train_list](http://csr.bu.edu/ftp/visda/2019/multi-source/domainnet/txt/sketch_train.txt), [test_list](http://csr.bu.edu/ftp/visda/2019/multi-source/domainnet/txt/sketch_test.txt)|
 
-For the ImageNet-1k dataset, the directory structure is the standard layout for the torchvision [`datasets.ImageFolder`](https://pytorch.org/docs/stable/torchvision/datasets.html#imagefolder), and the training and validation data is expected to be in the `train/` folder and `val/` folder respectively.
+For the ImageNet-1k dataset, the directory structure is the standard layout for the torchvision [`datasets.ImageFolder`](https://pytorch.org/docs/stable/torchvision/datasets.html#imagefolder), and the training and validation data is expected to be in the `train/` folder and `val/` folder, respectively.
 
 Except for CIFAR-100, other datasets should be arranged as the following structure:
 ```
@@ -92,20 +96,18 @@ CUDA_VISIBLE_DEVICES=0,1 bash finetune.sh
 
 ## Pretrained Model Zoo on ImageNet-1k
 
-We provide two DHVT models pretrained on ImageNet 2012.
+We provide two DHVT models pretrained on ImageNet-1k 2012.
 
 | Method | #Params | GFLOPs| Acc@1 | Acc@5 | URL |
 | --- | --- | --- | --- | --- | --- |
-| DHVT-T | 6.2 | 1.4 | 77.6 | 93.4 | (Wait-for-release) |
-| DHVT-S | 23.8 | 5.1 | 82.3 | 96.0 | (Wait-for-release) |
+| DHVT-T | 6.2 | 1.4 | 77.6 | 93.4 | [(Google Drive)](https://drive.google.com/file/d/1nseUHBROF7oG7AIm-Lq2ReB2DOnzA9a7/view?usp=sharing) |
+| DHVT-S | 23.8 | 5.1 | 82.3 | 96.0 | [(Google Drive)](https://drive.google.com/file/d/1LFQ3KkQfivRoJCDdU15vIa1CIFGqkSLX/view?usp=sharing) |
+
+Notes: The Affine Operation is removed in the provided checkpoints for better performance on ImageNet-1k (while only 0.1% performance degradation). Please remove the corresponding codes in the vision_transformer.py.
 
 ## Future Work
 
-1. Release the pretrained models on ImageNet-1k. (Coming in mid-December)
-
-2. Recombine the code structure and split the large scripts in `vision_transformer.py` into multiple smaller ones.
-
-3. Improve the method to _DHVTv2_, which is a hierarchical structure and with lower computational costs and higher performance
+Explore the hybrid architecture on more vision tasks!
 
 ## License
 This repository is released under the Apache 2.0 license as found in the [LICENSE](LICENSE) file.
